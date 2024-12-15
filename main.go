@@ -2,19 +2,17 @@ package main
 
 import (
 	"fmt"
-	"os"
+	"time"
 )
 
 func main() {
-	fmt.Println("Welcome to Hangman!")
-	player := NewPlayer("Player1")
-	wordList := NewWordList()
-	game := NewGame(player, wordList)
+	board := NewBoard(10, 10)
+	board.Initialize()
 
-	if err := game.Start(); err != nil {
-		fmt.Println("Error:", err)
-		os.Exit(1)
+	for {
+		fmt.Print("\033[H\033[2J") // Clear the console
+		board.Display()
+		board.NextGeneration()
+		time.Sleep(500 * time.Millisecond) // Pause for half a second
 	}
-
-	fmt.Println("Thanks for playing!")
 }
